@@ -48,7 +48,8 @@ class JsonRpcClient
     public function __construct(
         string $connectionUrl,
         ?float $feeCushion = null,
-        ?string $maxFeeXrp  =null
+        ?string $maxFeeXrp = null,
+        ?string $source_ip = null
     ) {
         $this->connectionUrl = $connectionUrl;
 
@@ -63,6 +64,9 @@ class JsonRpcClient
                 'base_uri' => $this->connectionUrl,
                 'handler' => $stack,
                 'timeout' => $this->timeout,
+                'curl' => [
+                    CURLOPT_INTERFACE => $source_ip
+                ],
             ]
         );
     }

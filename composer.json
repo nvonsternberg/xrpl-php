@@ -1,5 +1,5 @@
 {
-  "name": "hardcastle/xrpl_php",
+  "name": "nvonsternberg/xrpl_php",
   "description": "PHP Client for the XRP Ledger",
   "minimum-stability": "stable",
   "license": "ISC",
