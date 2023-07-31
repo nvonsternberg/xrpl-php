@@ -17,8 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "XRPL_PHP\\": "src/",
-      "XRPL_PHP\\Test\\": "tests/"
+      "XRPL_PHP\\": "src/"
     },
     "files": [
       "src/Sugar/autofill.php",
@@ -28,6 +27,11 @@
       "src/Sugar/submit.php",
       "src/Sugar/xrpConversion.php"
     ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "XRPL_PHP\\Test\\": "tests/"
+    }
   },
   "require": {
     "guzzlehttp/guzzle": "^7.4",
