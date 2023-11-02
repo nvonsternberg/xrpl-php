@@ -43,12 +43,11 @@ class JsonRpcClient
 
     private string $maxFeeXrp;
 
-    private float $timeout = 3.0;
-
     public function __construct(
         string $connectionUrl,
         ?float $feeCushion = null,
         ?string $maxFeeXrp = null,
+        ?float $timeout = 3.0,
         ?string $source_ip = null
     ) {
         $this->connectionUrl = $connectionUrl;
