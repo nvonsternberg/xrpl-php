@@ -45,12 +45,11 @@ class JsonRpcClient
 
     private string $maxFeeXrp;
 
-    private float $timeout = 3.0;
-
     public function __construct(
         string $connectionUrl,
         ?float $feeCushion = null,
-        ?string $maxFeeXrp  =null
+        ?string $maxFeeXrp = null,
+        ?float $timeout = 3.0
     ) {
         $this->connectionUrl = $connectionUrl;
 
@@ -64,7 +63,7 @@ class JsonRpcClient
             [
                 'base_uri' => $this->connectionUrl,
                 'handler' => $stack,
-                'timeout' => $this->timeout,
+                'timeout' => $timeout,
             ]
         );
     }
@@ -89,7 +88,7 @@ class JsonRpcClient
             $request->getJson()
         );
 
-        $resolve = function(ResponseInterface $response) use(&$promise, $request, $returnRawResponse): \XRPL_PHP\Models\ErrorResponse|\XRPL_PHP\Models\BaseResponse|\Psr\Http\Message\ResponseInterface {
+        $resolve = function (ResponseInterface $response) use (&$promise, $request, $returnRawResponse): \XRPL_PHP\Models\ErrorResponse|\XRPL_PHP\Models\BaseResponse|\Psr\Http\Message\ResponseInterface {
             if ($returnRawResponse) {
                 return $response;
             }
@@ -161,7 +160,7 @@ class JsonRpcClient
             $rawResponsePayload = $response->getBody()->getContents();
             $responsePayload = json_decode($rawResponsePayload, true);
 
-            if(isset($responsePayload['result']['error'])) {
+            if (isset($responsePayload['result']['error'])) {
                 return new ErrorResponse(
                     id: null,
                     statusCode: $statusCode,
@@ -297,11 +296,10 @@ class JsonRpcClient
      */
     public function submit(
         Transaction|string|array $transaction,
-        ?bool                    $autofill = false,
-        ?bool                    $failHard = false,
-        ?Wallet                  $wallet = null
-    ): SubmitResponse
-    {
+        ?bool $autofill = false,
+        ?bool $failHard = false,
+        ?Wallet $wallet = null
+    ): SubmitResponse {
         return submit($this, $transaction, $autofill, $failHard, $wallet);
     }
 
@@ -317,11 +315,10 @@ class JsonRpcClient
      */
     public function submitAndWait(
         Transaction|string|array $transaction,
-        ?bool                    $autofill = false,
-        ?bool                    $failHard = false,
-        ?Wallet                  $wallet = null
-    ): TxResponse
-    {
+        ?bool $autofill = false,
+        ?bool $failHard = false,
+        ?Wallet $wallet = null
+    ): TxResponse {
         return submitAndWait($this, $transaction, $autofill, $failHard, $wallet);
     }
 
